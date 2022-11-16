@@ -5,56 +5,76 @@ import { ProtectedRoute } from "./components/protectedRoute";
 import { Register } from "./components/Register";
 import { AuthProvider } from "./context/authContext";
 import { Admin, Analytics, Dashboard, Landing } from "./pages";
+import { ReactComponent as IconMenu } from "./images/logo.svg";
+import { Switch } from "./components/Switch";
+import { useState } from "react";
 
-const handleDarkMode = (e) => {
-  e.preventDefault();
+let handleToggle = false;
+
+const handleDarkMode = (setIsToggled) => {
+  // e.preventDefault();
   document.documentElement.classList.toggle("dark");
-  if (document.getElementById("switchMode").innerText === "Turn on Dark Mode") {
-    document.getElementById("switchMode").innerText = "Turn On Light Mode";
+  // if (document.getElementById("switchMode").innerText === "Turn On Dark Mode") {
+  //   document.getElementById("switchMode").innerText = "Turn On Light Mode";
+  // } else {
+  //   document.getElementById("switchMode").innerText = "Turn On Dark Mode";
+  // }
+
+  if (handleToggle === false) {
+    handleToggle = true;
   } else {
-    document.getElementById("switchMode").innerText = "Turn on Dark Mode";
+    handleToggle = false;
   }
+  console.log(handleToggle);
 };
 
 function App() {
+  const [isToggled, setIsToggle] = useState(false);
   return (
-    <div className="bg-slate-300 h-max text-dark dark:bg-slate-800 dark:text-cyan-300">
-      <nav className="w-full h-12 z-10 mb-2 justify-between bg-indigo-400 dark:bg-slate-900 flex px-1 py-1">
-        <div className="bg-white flex">
-          <h1>una imagen en svg</h1>
+    <div className="bg-slate-300 h-max text-dark dark:bg-slate-800 ">
+      <nav className="w-full h-12 z-10 mb-2 justify-between bg-purple-500 dark:bg-slate-900 flex px-1 py-1">
+        <div className="bg-transparent flex self-center">
+          <IconMenu className="w-40 h-max " />
         </div>
         {/* <div className="w-full flex ">
           <ul className="flex flex-row justify-around w-full items-center ml-2">
             <li className="bg-white p-2 rounded-md text-sm">
-              <a href="/">Home</a>
+            <a href="/">Home</a>
             </li>
             <li className="bg-white p-2 rounded-md text-sm">
-              <a href="/register">Register</a>
+            <a href="/register">Register</a>
             </li>
             <li className="bg-white p-2 rounded-md text-sm">
-              <a href="/login">Login</a>
+            <a href="/login">Login</a>
             </li>
-          </ul>
-        </div> */}
+            </ul>
+          </div> */}
 
-        <div className="w-auto h-100 flex justify-between">
-          <div className="flex mx-2">
-            <button
+        <div className="h-100 flex justify-between">
+          <div className="flex mx-2 items-center">
+            {/* <button
               onClick={handleDarkMode}
-              className="rounded-md bg-slate-900 text-white px-2 dark:bg-white dark:text-black"
+              className="relative inline-flex items-center py-1.5 px-2 rounded-full transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white focus:outline-none bg-slate-700 text-slate-400 focus-visible:ring-slate-500"
               id="switchMode"
-            >
-              Turn on Dark Mode
-            </button>
+              > */}
+            <Switch
+              rounded={true}
+              isToggled={isToggled}
+              onToggle={() => {
+                setIsToggle(!isToggled);
+                handleDarkMode(setIsToggle);
+              }}
+            />
+            {/* </button> */}
           </div>
           <div className="flex">
-            <button className=" rounded-md bg-indigo-200 dark:bg-slate-800 dark:text-white">
-              Profile
-            </button>
+            <select className=" rounded-md bg-indigo-200 dark:bg-slate-800 dark:text-white">
+              <option value="0">PROFILE</option>
+            </select>
           </div>
         </div>
       </nav>
-      <main className="h-screen flex" >
+      <main className="h-screen flex">
         {/* <BrowserRouter> */}
         <AuthProvider>
           <Routes>
@@ -79,6 +99,7 @@ function App() {
       </main>
     </div>
   );
+  // console.log(isToggled)
 }
 
 export default App;

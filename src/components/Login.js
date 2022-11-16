@@ -148,7 +148,7 @@ export function Login() {
           </a>
         </div>
       </form>
-      <p className="my-4 text-sm flex justify-between px-3">
+      <p className="my-4 text-sm flex justify-between px-3 dark:text-slate-200">
         You don't have an account? <Link className="text-blue-700 font-bold dark:text-white dark:hover:text-blue-500" to="/register">Register</Link>
       </p>
 
